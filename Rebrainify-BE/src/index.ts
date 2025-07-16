@@ -14,7 +14,7 @@ app.use(express.json());
 console.log(`[${new Date().toLocaleTimeString()}] Starting MongoDB connection...`);
 
 const connectWithRetry = () => {
-    mongoose.connect("mongodb://localhost:27017/rebrainify")
+    mongoose.connect("mongodb+srv://admin:ag071631@cluster0.jk2vwoq.mongodb.net/rebrainify")
         .then(() => {
             console.log("✅ MongoDB connected");
             app.listen(3000, () => {
