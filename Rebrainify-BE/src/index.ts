@@ -7,9 +7,11 @@ import { ContentModel, UserModel, LinkModel } from "./db";
 import { JWT_PASS } from "./config";
 import { userMiddleware } from "./middleware";
 import { random } from "./utils";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 console.log(`[${new Date().toLocaleTimeString()}] Starting MongoDB connection...`);
 
