@@ -3,7 +3,7 @@ import { ShareIcon } from "../icons/ShareIcon";
 interface CardProps{
     title:string,
     link: string,
-    type: "youtube" | "twitter"
+    type: "youtube" | "x"
 }
 
 export function Card(props: CardProps){
@@ -28,9 +28,15 @@ export function Card(props: CardProps){
                 </div>
             </div>
             <div className="pt-4">
-                {props.type=="youtube" && <iframe className="w-full" src={props.link.replace("watch","embed")} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
-                {props.type=="twitter" && <blockquote className="twitter-tweet">
-                    <a href={props.link.replace("x.com","twitter.com")}></a> 
+                {props.type=="youtube" && <iframe className="w-full" src={props.link.includes("watch?v=")
+                ? props.link.replace("watch?v=", "embed/")
+                : props.link.includes("youtu.be/")
+                ? `https://www.youtube.com/embed/${props.link.split("youtu.be/")[1].split(/[?&]/)[0]}`
+                : props.link.includes("/shorts/")
+                ? `https://www.youtube.com/embed/${props.link.split("/shorts/")[1].split(/[?&]/)[0]}`
+                : ""} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
+                {props.type === "x" && <blockquote className="twitter-tweet">
+                    <a href={props.link.replace("x.com", "twitter.com")}></a> 
                 </blockquote>}
             </div>
         </div>

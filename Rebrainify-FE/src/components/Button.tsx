@@ -21,7 +21,7 @@ const defaultStyles = "px-4 py-2 rounded-md font-light flex items-center"
 
 
 export function Button({variant, text, startIcon, onClick, fullWidth, loading}: ButtonProps){
-    return <button onClick={onClick} className={`${variantClasses[variant]} ${defaultStyles} cursor-pointer` +
+    return <button onClick={onClick} className={`${variantClasses[variant]} ${defaultStyles} cursor-pointer min-w-24 flex justify-center` +
         `${fullWidth ? " w-full flex justify-center" : ""}` +
         `${loading ? " opacity-45" : ""}`} disabled={loading}>
         <div className="pr-2 ">

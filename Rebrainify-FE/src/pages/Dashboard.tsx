@@ -5,10 +5,13 @@ import { CreateComponentModal } from "../components/CreateContentModal"
 import { PlusIcon } from "../icons/PlusIcon"
 import { ShareIcon } from "../icons/ShareIcon"
 import { Sidebar } from "../components/Sidebar"
+import { useContent } from "../hooks/UseContent"
 
 
 export function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false);
+  const contents = useContent();
+
   return <div>
     <Sidebar/>
     <div className="p-4 ml-72 min-h-screen bg-gray-100">
@@ -22,8 +25,7 @@ export function Dashboard() {
         }} variant="primary" text="Add Content" startIcon={<PlusIcon/>}/>
       </div>
       <div className="flex gap-4">
-        <Card type="twitter" link="https://x.com/JohnCena/status/1945103460086509654" title="John Cena tweet"/>
-        <Card type="youtube" link="https://www.youtube.com/embed/E2_AEgizcgU?si=Vlp8XL9VKUmhxF6o" title="Saket Gokhale - what really happened"/>
+        {contents.map(({_id, title, link, type})=><Card key={_id} type={type} link={link} title={title}/>)}
       </div>
     </div>
   </div>
