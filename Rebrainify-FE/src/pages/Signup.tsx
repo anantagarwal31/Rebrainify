@@ -31,6 +31,11 @@ export function Signup(){
             </div>
             <Input ref={usernameRef} placeholder="Username"/>
             <Input ref={passwordRef} placeholder="Password"/>
+            <div className="flex justify-center pt-2">
+                Already a user?<span className="pl-1 text-blue-700 hover:text-purple-600 hover:underline" onClick={()=>{
+                    navigate("/signin")
+                }}>SignIn</span>
+            </div>
             <div className="flex justify-center pt-4">
                 <Button onClick={signup} variant="primary" text="Signup" fullWidth={true} loading={false}/>
             </div>
