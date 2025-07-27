@@ -1,4 +1,15 @@
+import { useEffect } from "react";
 import { ShareIcon } from "../icons/ShareIcon";
+
+declare global {
+  interface Window {
+    twttr: {
+      widgets: {
+        load: () => void;
+      };
+    };
+  }
+}
 
 interface CardProps{
     title:string,
@@ -7,6 +18,11 @@ interface CardProps{
 }
 
 export function Card(props: CardProps){
+    useEffect(() => {
+        if (props.type === "x" && window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load();
+        }
+    }, [props.type, props.link]); 
     return <div>
         <div className="p-4 bg-white rounded-md border-gray-100 max-w-72 border-2 min-h-48 min-w-72">
             <div className="flex justify-between">

@@ -116,9 +116,15 @@ app.post("/api/v1/signin",async (req: Request,res: Response): Promise<void>=>{
                 token
             })
         }
+        else {
+            res.status(401).json({
+                error: "Invalid credentials"
+            });
+            return;
+        }
     }
     catch(e){
-        console.error("Signup error: ", e);
+        console.error("Signin error: ", e);
         res.status(500).json({
             error:"Internal server error"
         })

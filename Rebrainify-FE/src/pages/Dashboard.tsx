@@ -8,11 +8,20 @@ import { Sidebar } from "../components/Sidebar"
 import { useContent } from "../hooks/UseContent"
 import { BACKEND_URL } from "../config"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 
 export function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false);
   const {contents, refresh} = useContent();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+    if(!token){
+      navigate("/signin");
+    }
+  },[])
 
   useEffect(()=>{
     refresh();
@@ -24,7 +33,7 @@ export function Dashboard() {
       <CreateComponentModal open={modalOpen} onClose={()=>{
         setModalOpen(false);
       }}/>
-      <div className="flex justify-end gap-4 ">
+      <div className="flex justify-end gap-4 pb-4">
         <Button onClick={async ()=>{
           const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`,{
             share: true

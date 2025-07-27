@@ -1,3 +1,4 @@
+import { ProtectDashboard } from "./components/ProtectDashboard"
 import { Dashboard } from "./pages/Dashboard"
 import { Signin } from "./pages/Signin"
 import { Signup } from "./pages/Signup"
@@ -8,7 +9,11 @@ export default function App() {
     <Routes>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/signin" element={<Signin/>}/>
-      <Route path="/dashboard" element={<Dashboard/>}/>
+      <Route path="/dashboard" element={
+        <ProtectDashboard>
+          <Dashboard/>
+        </ProtectDashboard>
+      }/>
     </Routes>
   </BrowserRouter>
 }
