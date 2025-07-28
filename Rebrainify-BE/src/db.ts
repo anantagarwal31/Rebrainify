@@ -6,9 +6,10 @@ const UserSchema = new Schema({
 })
 
 const ContentSchema = new Schema({
-    title: String,
-    link: String,
-    type: String,
+    title: { type: String, required: true },
+    link: { type: String, required: false },
+    text: { type: String, required: false }, 
+    type: { type: String, required: true },
     tags: [{type: mongoose.Types.ObjectId, ref: 'Tag'}],
     userId: {type: mongoose.Types.ObjectId, ref: 'User', required: true},
 })

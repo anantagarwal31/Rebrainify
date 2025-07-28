@@ -4,6 +4,7 @@ import { LogoutIcon } from "../icons/LogoutIcon";
 import { XIcon } from "../icons/XIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
 import { SidebarItem } from "./SidebarItem";
+import { TextIcon } from "../icons/TextIcon";
 
 export function Sidebar(){
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ export function Sidebar(){
             <div className="left-0 top-0 pt-8">
                 <SidebarItem icon={<XIcon/>} text="Tweets"/>
                 <SidebarItem icon={<YoutubeIcon/>} text="Videos"/>
+                <SidebarItem icon={<TextIcon/>} text="Text"/>
             </div>
         </div>
         <div className="mt-auto pb-4">

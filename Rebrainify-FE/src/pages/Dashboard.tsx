@@ -50,7 +50,7 @@ export function Dashboard() {
         }} variant="primary" text="Add Content" startIcon={<PlusIcon/>}/>
       </div>
       <div className="flex gap-4 flex-wrap">
-        {contents.map(({_id, title, link, type})=><Card key={_id} type={type} link={link} title={title}/>)}
+        {contents.map(({_id, title, link, text, type})=><Card key={_id} _id={_id} type={type} link={link} text={text} title={title} onDelete={refresh}/>)}
       </div>
     </div>
   </div>

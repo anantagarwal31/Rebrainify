@@ -134,7 +134,9 @@ app.post("/api/v1/signin",async (req: Request,res: Response): Promise<void>=>{
 app.post("/api/v1/content",userMiddleware, async (req: Request ,res: Response): Promise<void>=>{
     const contentBody = z.object({
         title: z.string().min(8).max(30),
-        link: z.string().min(8)
+        link: z.string().min(8).optional(),
+        text: z.string().min(8).optional(),
+        type: z.string()
     })
 
     const parsedContentData = contentBody.safeParse(req.body);
@@ -148,6 +150,7 @@ app.post("/api/v1/content",userMiddleware, async (req: Request ,res: Response): 
 
     const title = req.body.title;
     const link = req.body.link;
+    const text = req.body.text;
     const type = req.body.type;
 
     try{
@@ -155,6 +158,7 @@ app.post("/api/v1/content",userMiddleware, async (req: Request ,res: Response): 
         await ContentModel.create({
         title,
         link,
+        text,
         type,
         userId: req.userId,
         tags: []

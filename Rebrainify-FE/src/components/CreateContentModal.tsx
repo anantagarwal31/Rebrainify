@@ -12,7 +12,8 @@ interface CreateComponentModalProps{
 
 export const ContentType = {
   Youtube: "youtube",
-  X: "x"
+  X: "x",
+  Text: "text"
 } as const;
 
 export type ContentType = typeof ContentType[keyof typeof ContentType];
@@ -23,6 +24,7 @@ export function CreateComponentModal({open, onClose}: CreateComponentModalProps)
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
     const [type, setType] = useState<ContentType>(ContentType.Youtube)
+    const [textValue, setTextValue] = useState("");
 
     useEffect(()=>{
         function handleClickOutside(event:MouseEvent){
@@ -45,7 +47,8 @@ export function CreateComponentModal({open, onClose}: CreateComponentModalProps)
 
         await axios.post(`${BACKEND_URL}/api/v1/content`,{
             title,
-            link,
+            link: type !== ContentType.Text ? link : undefined,
+            text: type === ContentType.Text ? textValue : undefined,
             type
         },{
             headers:{
@@ -66,10 +69,24 @@ export function CreateComponentModal({open, onClose}: CreateComponentModalProps)
                             <CrossIcon/>
                         </div>
                     </div>
-                    <div>
-                        <Input ref={titleRef} placeholder={'Title'}/>
-                        <Input ref={linkRef} placeholder={'Link'}/>
-                    </div>
+                    <div className="flex flex-col items-center justify-center w-full gap-2 py-2">
+                        <div className="flex flex-col gap-3 items-center w-72">
+                            <Input ref={titleRef} placeholder="Title" />
+                        </div>
+                        {type !== ContentType.Text ? (
+                            <div className="flex flex-col gap-3 items-center w-7">
+                            <Input ref={linkRef} placeholder="Link" />
+                            </div>
+                        ) : (
+                            <textarea
+                            className="w-52 px-4 py-2 border border-gray-200 rounded m-2 h-32 resize-none"
+                            placeholder="Enter your text..."
+                            rows={4}
+                            value={textValue}
+                            onChange={(e) => setTextValue(e.target.value)}
+                            />
+                        )}
+                        </div>
                     <div>
                         <h1 className="flex justify-center">Type</h1>
                         <div className="flex gap-2 p-2 justify-center">
@@ -78,6 +95,9 @@ export function CreateComponentModal({open, onClose}: CreateComponentModalProps)
                             }}/>
                             <Button text="X" variant={type==ContentType.X?"primary":"secondary"} onClick={()=>{
                                 setType(ContentType.X)
+                            }}/>
+                            <Button text="Text" variant={type==ContentType.Text?"primary":"secondary"} onClick={()=>{
+                                setType(ContentType.Text)
                             }}/>
                         </div>
                     </div>
