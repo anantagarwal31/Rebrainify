@@ -5,8 +5,13 @@ import { XIcon } from "../icons/XIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
 import { SidebarItem } from "./SidebarItem";
 import { TextIcon } from "../icons/TextIcon";
+import { HomeIcon } from "../icons/HomeIcon";
 
-export function Sidebar(){
+type Props = {
+  setFilter: (filter: "home" | "youtube" | "x" | "text") => void;
+};
+
+export function Sidebar({ setFilter }: Props){
     const navigate = useNavigate();
     const logout = () => {
     localStorage.removeItem("token");
@@ -18,9 +23,10 @@ export function Sidebar(){
                 {<LogoIcon/>} Rebrainify
             </h1>
             <div className="left-0 top-0 pt-8">
-                <SidebarItem icon={<XIcon/>} text="Tweets"/>
-                <SidebarItem icon={<YoutubeIcon/>} text="Videos"/>
-                <SidebarItem icon={<TextIcon/>} text="Text"/>
+                <SidebarItem icon={<HomeIcon/>} text="Home" onClick={() => setFilter("home")}/>
+                <SidebarItem icon={<XIcon/>} text="Tweets" onClick={() => setFilter("x")}/>
+                <SidebarItem icon={<YoutubeIcon/>} text="Videos" onClick={() => setFilter("youtube")} />
+                <SidebarItem icon={<TextIcon/>} text="Text" onClick={() => setFilter("text")} />
             </div>
         </div>
         <div className="mt-auto pb-4">

@@ -65,7 +65,7 @@ export function Card(props: CardProps){
             alert("Failed to delete the content")
         })
     }
-    return <div>
+    return <div className="p-2">
         <div className="p-4 bg-white rounded-xl border-gray-100 w-80 border-2 h-80 flex flex-col justify-start">
             <div className="flex justify-between">
                 <div className="flex items-center text-md">

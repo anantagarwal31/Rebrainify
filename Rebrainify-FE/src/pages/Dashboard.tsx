@@ -10,11 +10,24 @@ import { BACKEND_URL } from "../config"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
+type ContentItem = {
+  _id: string;
+  title: string;
+  link?: string;
+  text?: string;
+  type: "youtube" | "x" | "text";
+};
 
 export function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false);
   const {contents, refresh} = useContent();
   const navigate = useNavigate();
+  const [content, setContent] = useState<ContentItem[]>([]);
+  const [filter, setFilter] = useState<"home" | "youtube" | "x" | "text">("home");
+
+  const filteredContents = filter === "home"
+  ? content 
+  : content.filter(c => c.type === filter);
 
   useEffect(()=>{
     const token = localStorage.getItem("token");
@@ -27,8 +40,12 @@ export function Dashboard() {
     refresh();
   },[modalOpen])
 
+  useEffect(() => {
+    setContent(contents);
+  }, [contents]);
+
   return <div>
-    <Sidebar/>
+    <Sidebar setFilter={setFilter}/>
     <div className="p-4 ml-72 min-h-screen bg-gray-100">
       <CreateComponentModal open={modalOpen} onClose={()=>{
         setModalOpen(false);
@@ -49,8 +66,10 @@ export function Dashboard() {
           setModalOpen(true);
         }} variant="primary" text="Add Content" startIcon={<PlusIcon/>}/>
       </div>
-      <div className="flex gap-4 flex-wrap">
-        {contents.map(({_id, title, link, text, type})=><Card key={_id} _id={_id} type={type} link={link} text={text} title={title} onDelete={refresh}/>)}
+      <div className="pl-4 flex gap-4 flex-wrap">
+        {filteredContents.map(({ _id, title, link, text, type }) => (
+          <Card key={_id} _id={_id} type={type} link={link} text={text} title={title} onDelete={refresh} />
+        ))}
       </div>
     </div>
   </div>
