@@ -5,7 +5,7 @@ import { CreateComponentModal } from "../components/CreateContentModal"
 import { PlusIcon } from "../icons/PlusIcon"
 import { ShareIcon } from "../icons/ShareIcon"
 import { Sidebar } from "../components/Sidebar"
-import { useContent } from "../hooks/UseContent"
+import { UseContent } from "../hooks/UseContent"
 import { BACKEND_URL } from "../config"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -20,7 +20,7 @@ type ContentItem = {
 
 export function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false);
-  const {contents, refresh} = useContent();
+  const {contents, refresh} = UseContent();
   const navigate = useNavigate();
   const [content, setContent] = useState<ContentItem[]>([]);
   const [filter, setFilter] = useState<"home" | "youtube" | "x" | "text">("home");

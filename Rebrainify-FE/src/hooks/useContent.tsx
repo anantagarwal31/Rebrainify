@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
 import axios from "axios"
 
-export function useContent(){
+export function UseContent(){
     const [contents, setContents] = useState([]);
 
     function refresh(){
