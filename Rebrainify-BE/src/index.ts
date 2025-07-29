@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import { ContentModel, UserModel, LinkModel } from "./db";
-import { JWT_PASS } from "./config";
+import { JWT_PASS, PORT } from "./config";
 import { userMiddleware } from "./middleware";
 import { random } from "./utils";
 import cors from "cors";
@@ -19,13 +19,13 @@ const connectWithRetry = () => {
     mongoose.connect("mongodb+srv://admin:ag071631@cluster0.jk2vwoq.mongodb.net/rebrainify")
         .then(() => {
             console.log("✅ MongoDB connected");
-            app.listen(3000, () => {
-                console.log("🚀 Server running on http://localhost:3000");
+            app.listen(PORT, () => {
+            console.log(`🚀 Server running on http://localhost:${PORT}`);
             });
         })
         .catch((err) => {
             console.error("❌ MongoDB connection failed. Retrying in 5s...", err.message);
-            setTimeout(connectWithRetry, 5000); // Retry every 5 seconds
+            setTimeout(connectWithRetry, 5000);
         });
 };
 
