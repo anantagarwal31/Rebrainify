@@ -59,7 +59,7 @@ export function Dashboard() {
               "Authorization": localStorage.getItem("token")
             }
           })
-          const shareURL = `http://localhost:5173/brain/${response.data.hash}`
+          const shareURL = `${window.location.origin}/brain/${response.data.hash}`;
           alert(shareURL);
         }} variant="secondary" text="Share Brain" startIcon={<ShareIcon/>}/>
         <Button onClick={()=>{
