@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import { ContentModel, UserModel, LinkModel } from "./db";
-import { JWT_PASS, PORT } from "./config";
+import { JWT_PASS, PORT, MONGO_URL } from "./config";
 import { userMiddleware } from "./middleware";
 import { random } from "./utils";
 import cors from "cors";
@@ -16,7 +16,7 @@ app.use(cors());
 console.log(`[${new Date().toLocaleTimeString()}] Starting MongoDB connection...`);
 
 const connectWithRetry = () => {
-    mongoose.connect("mongodb+srv://admin:ag071631@cluster0.jk2vwoq.mongodb.net/rebrainify")
+    mongoose.connect(MONGO_URL!)
         .then(() => {
             console.log("✅ MongoDB connected");
             app.listen(PORT, () => {
