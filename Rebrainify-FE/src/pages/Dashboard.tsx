@@ -45,7 +45,7 @@ export function Dashboard() {
   }, [contents]);
 
   return <div>
-    <Sidebar setFilter={setFilter}/>
+    <Sidebar setFilter={setFilter} sharedLink={false}/>
     <div className="p-4 ml-72 min-h-screen bg-gray-100">
       <CreateComponentModal open={modalOpen} onClose={()=>{
         setModalOpen(false);
@@ -59,7 +59,7 @@ export function Dashboard() {
               "Authorization": localStorage.getItem("token")
             }
           })
-          const shareURL = `http://localhost:5173/share/${response.data.hash}`
+          const shareURL = `http://localhost:5173/brain/${response.data.hash}`
           alert(shareURL);
         }} variant="secondary" text="Share Brain" startIcon={<ShareIcon/>}/>
         <Button onClick={()=>{
@@ -68,7 +68,7 @@ export function Dashboard() {
       </div>
       <div className="pl-4 flex gap-4 flex-wrap">
         {filteredContents.map(({ _id, title, link, text, type }) => (
-          <Card key={_id} _id={_id} type={type} link={link} text={text} title={title} onDelete={refresh} />
+          <Card key={_id} _id={_id} type={type} link={link} text={text} title={title} onDelete={refresh} readOnly={false} />
         ))}
       </div>
     </div>

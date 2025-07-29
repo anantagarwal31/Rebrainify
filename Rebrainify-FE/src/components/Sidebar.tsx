@@ -8,10 +8,11 @@ import { TextIcon } from "../icons/TextIcon";
 import { HomeIcon } from "../icons/HomeIcon";
 
 type Props = {
-  setFilter: (filter: "home" | "youtube" | "x" | "text") => void;
+  setFilter: (filter: "home" | "youtube" | "x" | "text") => void,
+  sharedLink: boolean
 };
 
-export function Sidebar({ setFilter }: Props){
+export function Sidebar(props: Props){
     const navigate = useNavigate();
     const logout = () => {
     localStorage.removeItem("token");
@@ -23,14 +24,16 @@ export function Sidebar({ setFilter }: Props){
                 {<LogoIcon/>} Rebrainify
             </h1>
             <div className="left-0 top-0 pt-8">
-                <SidebarItem icon={<HomeIcon/>} text="Home" onClick={() => setFilter("home")}/>
-                <SidebarItem icon={<XIcon/>} text="Tweets" onClick={() => setFilter("x")}/>
-                <SidebarItem icon={<YoutubeIcon/>} text="Videos" onClick={() => setFilter("youtube")} />
-                <SidebarItem icon={<TextIcon/>} text="Text" onClick={() => setFilter("text")} />
+                <SidebarItem icon={<HomeIcon/>} text="Home" onClick={() => props.setFilter("home")}/>
+                <SidebarItem icon={<XIcon/>} text="Tweets" onClick={() => props.setFilter("x")}/>
+                <SidebarItem icon={<YoutubeIcon/>} text="Videos" onClick={() => props.setFilter("youtube")} />
+                <SidebarItem icon={<TextIcon/>} text="Text" onClick={() => props.setFilter("text")} />
             </div>
         </div>
         <div className="mt-auto pb-4">
-            <SidebarItem icon={<LogoutIcon/>} text="Logout" onClick={logout}/>
+            {!props.sharedLink && 
+                <SidebarItem icon={<LogoutIcon/>} text="Logout" onClick={logout}/>
+            }
         </div>
     </div>
 }

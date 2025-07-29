@@ -1,5 +1,6 @@
 import { ProtectDashboard } from "./components/ProtectDashboard"
 import { Dashboard } from "./pages/Dashboard"
+import { SharedContent } from "./pages/SharedContent"
 import { Signin } from "./pages/Signin"
 import { Signup } from "./pages/Signup"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
@@ -14,6 +15,7 @@ export default function App() {
           <Dashboard/>
         </ProtectDashboard>
       }/>
+      <Route path="/brain/:shareId" element={<SharedContent/>}/>
     </Routes>
   </BrowserRouter>
 }

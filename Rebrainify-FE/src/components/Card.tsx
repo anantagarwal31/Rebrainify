@@ -24,6 +24,7 @@ interface CardProps{
     text?: string,
     type: "youtube" | "x" | "text",
     onDelete?: () => void;
+    readOnly?: boolean
 }
 
 export function Card(props: CardProps){
@@ -80,9 +81,11 @@ export function Card(props: CardProps){
                             <ShareIcon/>
                         </a>
                     </div>
-                    <div onClick={deleteContent} className="pr-2 text-gray-400">
+                    {!props.readOnly && (
+                        <div onClick={deleteContent} className="pr-2 text-gray-400 cursor-pointer">
                         <DeleteIcon/>
-                    </div>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="pt-4">
